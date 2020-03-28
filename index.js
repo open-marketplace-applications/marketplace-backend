@@ -122,6 +122,63 @@ low(adapter)
             res.send(shops)
         })
 
+
+          // GET /orders
+          app.get('/orders', (req, res) => {
+            const orders = db.get('orders').filter({status: 'requested'}).value()
+            
+            const public_orders = orders.map(order => order = order.public_data);
+            
+            res.send(public_orders)
+        })
+
+
+        // POST /orders
+        app.post('/orders', (req, res) => {
+            console.log("create new order_request", req.body)
+            
+            const order_root = req.body.order_root
+            
+            console.log("order_root", order_root)
+            // get information from shop mam 
+            getShopInfo(order_root).then(order => {
+                console.log("order", order)
+
+                if(order.delivery.first_name) {
+
+                    let data = {
+                        ...order,
+                        root: order_root,
+                        public: false,
+                        public_data: {
+                            description: '',
+                            eastimated_route_length: '',
+                            eastimated_time: '',
+                            eastimated_price: '',
+                            reward: ''
+                        },
+                        status: 'requested',
+                        ordered: false,
+                    }
+
+                    // Store shop data
+                    db.get('orders')
+                        .push(data)
+                        .last()
+                        .assign({ id: Date.now().toString() })
+                        .write()
+                        .then(() => res.send(data))
+                } else {
+                    res.send({message: 'Order information invalid'})
+                }
+
+            }).catch(err => {   
+                res.send(err)
+            })
+
+
+        })
+
            // GET /payments
         app.get('/payments', (req, res) => {
             paymentModule.getPayments().then(payments => {
@@ -168,7 +225,7 @@ low(adapter)
                 .write()
         }
         // Set db default values
-        return db.defaults({ shops: [], config: {} }).write()
+        return db.defaults({ shops: [], orders: [], config: {} }).write()
     })
     .then(() => {
         server.listen(PORT, () => console.log('Server listening on port ' + PORT))
