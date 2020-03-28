@@ -118,13 +118,8 @@ low(adapter)
 
          // GET /shops
          app.get('/shops', (req, res) => {
-             console.log("URL", URL)
-            fetch(URL)
-                .then(res => res.json())
-                .then(json => {
-                    console.log("json", json)
-                    res.send(json)
-                });
+            const shops = db.get('shops').value()
+            res.send(shops)
         })
 
            // GET /payments
