@@ -127,7 +127,7 @@ low(adapter)
           app.get('/orders', (req, res) => {
             const orders = db.get('orders').filter({status: 'requested'}).value()
             
-            const public_orders = orders.map(order => order = order.public_data);
+            const public_orders = orders.map(order => order = order.delivery.public_data);
             
             res.send(public_orders)
         })
@@ -150,13 +150,6 @@ low(adapter)
                         ...order,
                         root: order_root,
                         public: false,
-                        public_data: {
-                            description: '',
-                            eastimated_route_length: '',
-                            eastimated_time: '',
-                            eastimated_price: '',
-                            reward: ''
-                        },
                         status: 'requested',
                         ordered: false,
                     }
