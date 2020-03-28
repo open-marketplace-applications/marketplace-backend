@@ -10,8 +10,9 @@
   "author": "huhn511",
   "license": "MIT",
   "dependencies": {
-    "@iota/core": "^1.0.0-beta.12",
+    "@iota/core": "^1.0.0-beta.29",
     "@iota/mam": "^0.7.3",
+    "@iota/mam.js": "github:iotaledger/mam.js",
     "cors": "^2.8.5",
     "cron": "^1.7.0",
     "express": "^4.16.4",

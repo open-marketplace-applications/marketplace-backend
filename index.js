@@ -16,6 +16,9 @@ const { asciiToTrytes } = require('@iota/converter')
 let {isValidChecksum} = require('@iota/checksum');
 const generateSeed = require('iota-generate-seed');
 
+const { getShopInfo } = require('./src/shop');
+
+
 let mamState;
 
 const PORT = APP_PORT || 3000
@@ -74,6 +77,44 @@ low(adapter)
                 .value()
             res.send(root)
         })
+
+         // POST /shops
+         app.post('/shops', (req, res) => {
+            console.log("register new shop", req.body)
+            
+            const shop_root = req.body.shop_root
+            
+            console.log("shop_root", shop_root)
+            // get information from shop mam 
+            getShopInfo(shop_root).then(shop => {
+                console.log("shop", shop)
+
+                if(shop.name) {
+
+                    let data = {
+                        ...shop,
+                        root: shop_root,
+                        public: false
+                    }
+
+                    // Store shop data
+                    db.get('shops')
+                        .push(data)
+                        .last()
+                        .assign({ id: Date.now().toString() })
+                        .write()
+                        .then(() => res.send(data))
+                } else {
+                    res.send({message: 'Shop information invalid'})
+                }
+
+            }).catch(err => {   
+                res.send(err)
+            })
+
+
+        })
+
 
          // GET /shops
          app.get('/shops', (req, res) => {
