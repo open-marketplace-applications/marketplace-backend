@@ -29,14 +29,17 @@ class NewsHelper {
   }
   getNewsByPublisher(publisher_id) {
     let data = this.my_db.get("news").value();
-    return _.filter(data, o => {
-      return (o.publisher_id = publisher_id);
+
+    return _.filter(data, function(o) {
+      // console.log(val);
+      return o.publisher_id == publisher_id;
     });
   }
   getNewsByType(type) {
     let data = this.my_db.get("news").value();
-    return _.filter(data, o => {
-      return (o.type = type);
+    return _.filter(data, function(o) {
+      // console.log(val);
+      return o.type == type;
     });
   }
   getNewsByTime(time) {
