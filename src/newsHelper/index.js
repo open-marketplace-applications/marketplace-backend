@@ -1,4 +1,4 @@
-const DB = require("../db/");
+const DB = require("../../db");
 var _ = require("lodash");
 
 const randomstring = require("randomstring");
