@@ -28,10 +28,11 @@ router.post("/new/", function(req, res) {
   let publisher_id = req.body.id;
   let title = req.body.title;
   let content = req.body.content;
-  my_news_helper.addNews(publisher_id, {
+  let saved = my_news_helper.addNews(publisher_id, {
     title,
     content
   });
+  res.json(saved);
 });
 
 module.exports = router;
