@@ -18,7 +18,9 @@
     "express": "^4.16.4",
     "iota-generate-seed": "^1.0.0",
     "iota-payment": "0.0.55",
+    "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
+    "randomstring": "^1.1.5",
     "request": "^2.88.2"
   }
 }
