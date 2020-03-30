@@ -1,0 +1,6 @@
+let my_helper = new NewsHelper();
+my_helper.addNews(9219, {
+  title: "Wir haben weiter geöffnet",
+  content: "Hi Test 1 Test2 und Testy Mesty"
+});
+console.log(my_helper.getNewsById("RQ8STA11"));
