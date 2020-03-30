@@ -54,6 +54,13 @@ class NewsHelper {
       return (o.article_id = article_id);
     });
   }
+  getLatestNews() {
+    return this.my_db.get("news")
+      //.filter({published: true})
+      .sortBy('time')
+      .take(3)
+      .value();
+  }
   //todo:optimize results
   findNews(queryObject) {
     let data = this.my_db.get("news").value();

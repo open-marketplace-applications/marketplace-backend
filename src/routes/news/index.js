@@ -6,6 +6,7 @@ let my_news_helper = new NewsHelper();
 
 //get news by article id
 router.get("/article/:id", (req, res) => {
+  console.log("sssd")
   let article_id = new String(req.params.id);
   let data = my_news_helper.getNewsById(article_id);
   res.json(data);
@@ -20,6 +21,12 @@ router.get("/publisher/:id", (req, res) => {
 router.get("/type/:id", (req, res) => {
   let article_type = parseInt(req.params.id);
   let data = my_news_helper.getNewsByType(article_type);
+  res.json(data);
+});
+
+//get news by type
+router.get("/latest", (req, res) => {
+  let data = my_news_helper.getLatestNews();
   res.json(data);
 });
 
