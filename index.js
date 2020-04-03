@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const paymentModule = require("iota-payment");
+const fs = require("fs");
 
 const low = require("lowdb");
 const FileAsync = require("lowdb/adapters/FileAsync");
@@ -71,10 +72,17 @@ low(adapter)
     });
 
     // GET /root
-    app.get("/", (req, res) => {
-      const root = db.get("config.root").value();
-      res.send(root);
-    });
+    if (fs.existsSync(__dirname + "/frontend")) {
+      app.use('/', express.static('frontend'));
+    }
+    else {
+      app.get("/", (req, res) => {
+        // Do something
+        const root = db.get("config.root").value();
+        res.send(root);
+      });
+    }
+
 
     // POST /shops
     app.post("/shops", (req, res) => {
