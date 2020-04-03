@@ -5,6 +5,9 @@ const cors = require("cors");
 const paymentModule = require("iota-payment");
 const fs = require("fs");
 
+const swaggerUi = require('swagger-ui-express');
+const openApiDocumentation = require('./api/v1/api-doc');
+
 const low = require("lowdb");
 const FileAsync = require("lowdb/adapters/FileAsync");
 const fetch = require("node-fetch");
@@ -23,6 +26,10 @@ let mamState;
 
 // Create server
 const app = express();
+
+app.use('/api', swaggerUi.serve, swaggerUi.setup(openApiDocumentation));
+
+
 app.use(cors());
 app.use(bodyParser.json());
 
