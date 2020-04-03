@@ -73,7 +73,7 @@ low(adapter)
 
     // GET /root
     if (fs.existsSync(__dirname + "/frontend")) {
-      app.use('/', express.static('frontend'));
+      app.use('/', express.static('frontend/dist'));
     }
     else {
       app.get("/", (req, res) => {
