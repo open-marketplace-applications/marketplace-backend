@@ -9,7 +9,7 @@ const low = require("lowdb");
 const FileAsync = require("lowdb/adapters/FileAsync");
 const fetch = require("node-fetch");
 
-const { PROVIDER, URL, APP_PORT, IOTAADDRESS } = require("./config.json");
+const { PROVIDER, URL, PORT, IOTAADDRESS } = require("./config.js");
 
 const Mam = require("@iota/mam");
 
@@ -20,8 +20,6 @@ const generateSeed = require("iota-generate-seed");
 const { getShopInfo } = require("./src/shop");
 
 let mamState;
-
-const PORT = APP_PORT || 3000;
 
 // Create server
 const app = express();

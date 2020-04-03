@@ -16,6 +16,7 @@
     "@iota/mam.js": "github:iotaledger/mam.js",
     "cors": "^2.8.5",
     "cron": "^1.7.0",
+    "dotenv": "^8.2.0",
     "express": "^4.16.4",
     "iota-generate-seed": "^1.0.0",
     "iota-payment": "0.0.55",
