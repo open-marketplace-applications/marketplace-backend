@@ -15,6 +15,12 @@ install dependencies
 npm install
 ```
 
+Add .env with your own IOTA seed 
+
+```
+seed='REPLACEWITHEIGHTYONETRYTESEED'
+```
+
 Start server
 
 ```
